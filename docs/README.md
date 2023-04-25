@@ -170,7 +170,34 @@ A könyvtáros számára fenntartott szint. A felhasználói szinten túl, jogos
 
 A program telepítéséhez és futtatásához a node.js[^1] `v18.14.0` és a hozzá tartozó npm  `v9.3.1` szükséges.
 
-Hajtsa végre a következő utasításokat a program gyökér könyvtárába. (Ahol a program `package.json` fájlja helyezkedik el)
+A következő utasításokat a program gyökérkönyvtárába hajtsa végre.
+
+#### Környezeti változók beállítása
+
+Az adatbázis eléréséhez a csatlakozási URI és az adatbázis neve
+
+```
+MONGODB_URI=mongodb://localhost:27017
+MONGODB_DB=baross-library
+```
+
+A jelszó visszaállítási folyamathoz használt email cím és a hozzá tartozó alkalmazásjelszó ([Bejelentkezés alkalmazásjelszavakkal](https://support.google.com/accounts/answer/185833?hl=hu))
+
+```
+GMAIL_USER=test@test.com
+GMAIL_PASSWORD=abcdefghijklmnop
+```
+
+A felhasználókezeléshez használt Cookie lejárati ideje (másodpercben megadva). 
+
+Valamint a node környezet értéke "production"-re állítva, hiszen a program ezen túl "éles" környezetben fog futni (nem fejlesztőiben [development])
+
+```
+COOKIE_MAX_AGE=3600
+NODE_ENV=production
+```
+
+#### A program telepítése és futtatása
 
 ```shell
 # A program csomagok telepítése
@@ -246,7 +273,7 @@ A végpont hiba üzenettel tér vissza az alábbi esetekben:
 }
 ```
 
-**Forrás kód**
+**API forrás kód**
 
 Minden API végpontnak a `pages/api` mappán belül kell elhelyezkednie és egy alapértelmezetten exportált függvénnyel kell rendelkeznie. Ez a függvény fogja kezelni a bejővő HTTP kéréseket, ezért szokás 'request handler'-nek (kérelem kezelő) vagy röviden `handler`-nek nevezni.
 
@@ -258,20 +285,52 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 ```
 
-A `method` változó értéke 
+A végpont a `method` változó értéke alapján fog dolgozni
 
 ```typescript
-// ...
 switch (method) {
   case 'POST': {
   }
   case: 'GET': {
   }
 }
-// ...
 ```
 
+Előfordulhat, hogy a végpont nem rendelkezik a kérés metódusával megegyező esettel. Ekkor a "Kérés típusa nem támogatott" válasszal tér vissza a végpont.
 
+```typescript
+switch (method) {
+  case 'POST': {
+  }
+  case: 'GET': {
+  } 
+  default:
+    res.status(405).json({ message: 'Request type is not supported' })
+}
+```
+
+**Hiba kezelés**
+
+Az eset kezelésen belül fontos a hiba tűrés/visszajelzés. Ez könnyen megvalósíható egy try/catch blokkal.
+
+Amikor kivétel keletkezik, a catch blokkon belül hiba üzenettel tér vissza a végpont, a `res` objektum `json()` metódusának meghívásával. Ezt azonban érdemes megelőzni a `status()` metódus meghívásával, megadva paraméterként a hiba státusz kódját (500 - Server Error, 400 - Bad Request), így a kliens oldalon könnyebb lesz beazonosítani a hiba forrását.
+
+```typescript
+try {
+} catch (error) {
+  res
+    .status(error.statusCode || 500)
+    .json({ message: error.message || 'Registration failed!' })
+}
+```
+
+Van, hogy egyéni hiba létrehozását igényli a program. Ilyen esetben a `throw` kulcsszóval lehet hibát "dob"-ni és az `ApiError` osztályának példányosításával lehet saját hibát létrehozni, megadva státusz kódját és üzenetét.
+
+```typescript
+if (!email || !password || !role) {
+  throw new ApiError(400, 'Required fields are email, password and role!')
+}
+```
 
 #### Bejelentkező felület (`/login`)
 
