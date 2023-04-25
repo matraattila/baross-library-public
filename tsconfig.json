@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/public/*": ["public/*"],
+      "@/styles/*": ["styles/*"],
+      "@/contexts/*": ["contexts/*"],
+      "@/interfaces/*": ["interfaces/*"],
+      "@/api/*": ["pages/api/*"],
+      "@/models/*": ["models/*"],
+      "@/ui/*": ["components/ui/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/upload-books/page.js",
+    "lib/mongodb.js",
+    "pages/index.ts",
+    "pages/api/register.js",
+    ".next/types/**/*.ts",
+    "pages/auth/login.tsx.old",
+    "lib/dbConnect.ts",
+    "emails/PasswordReset.jsx"
+  ],
+  "exclude": ["node_modules"]
+}

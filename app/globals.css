@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Lora', serif;
+    @apply scroll-smooth min-h-screen;
+  }
+
+  body {
+    @apply min-h-screen text-base text-neutral antialiased;
+  }
+}

@@ -1,0 +1,8 @@
+ input:
+    bevezeto.md: ""
+    fejlesztoiDokumentacio.md: ""
+    felhasznaloiDokumentacio.md: ""
+    fejlesztesiLehetosegek: ""
+ output: 
+   name: README.md
+ qa: {exclude: regex}
