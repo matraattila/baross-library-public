@@ -452,7 +452,7 @@ Kattintson a *Főoldal* menüpontra.
 
 ![Fájl böngészése](images/programUse/fileUpload/browseFile.png)
 
-2. A fájlkezelőn belül navigáljon a feltöltendő fájlt[^1] tartalmazó mappába és kattintson rá duplán
+2. A fájlkezelőn belül navigáljon a feltöltendő fájlt[^2] tartalmazó mappába és kattintson rá duplán
 
 ![Fájl kiválasztása](images/programUse/fileUpload/selectFile.png)
 
@@ -460,7 +460,7 @@ Kattintson a *Főoldal* menüpontra.
 
 ![Fájl feltöltése](images/programUse/fileUpload/uploadFile.png)
 
-[^1]: A könyvek adatait tartalmazó `.tsv` kiterjesztésű dokumentum
+[^2]: A könyvek adatait tartalmazó `.tsv` kiterjesztésű dokumentum
 
 #### Könyvek böngészése
 
