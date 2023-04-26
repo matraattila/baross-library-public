@@ -157,7 +157,9 @@ A következő utasításokat a program gyökérkönyvtárába hajtsa végre.
 
 #### Környezeti változók beállítása
 
-Az adatbázis eléréséhez a csatlakozási URI és az adatbázis neve
+Hozzon létre egy új fájlt `.env` néven a következő változókkal:
+
+Az adatbázis csatlakozási URI-je és az adatbázis neve
 
 ```
 MONGODB_URI=mongodb://localhost:27017
@@ -173,10 +175,13 @@ GMAIL_PASSWORD=abcdefghijklmnop
 
 A felhasználókezeléshez használt Cookie lejárati ideje (másodpercben megadva). 
 
-Valamint a node környezet értéke "production"-re állítva, hiszen a program ezen túl "éles" környezetben fog futni (nem fejlesztőiben [development])
-
 ```
 COOKIE_MAX_AGE=3600
+```
+
+A node környezet értéke "production"-re állítva, hiszen a program ezen túl "éles" környezetben fog futni (nem fejlesztőiben [development])
+
+```
 NODE_ENV=production
 ```
 
